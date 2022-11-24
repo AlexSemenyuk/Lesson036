@@ -1,4 +1,5 @@
-## Задание
+## Задание 
+### Использовать (InputStream (FileInputStream) и OutputStream (FileOutputStream) )
 
 ### Написать приложение для управления персональным списком задач (ToDoList)
 
