@@ -7,21 +7,21 @@ public enum Condition {
     private final int number;
     private final String mean;
 
-    private Condition(int number, String mean){
+    private Condition(int number, String mean) {
         this.number = number;
         this.mean = mean;
     }
 
-    String mean (){
+    String mean() {
         return this.mean;
     }
 
-    int number (){
+    int number() {
         return this.number;
     }
 
     @Override
     public String toString() {
-        return String.format("%1s", mean);
+        return String.format("%s", mean);
     }
 }

@@ -1,20 +1,31 @@
 package org.itstep;
 
 import java.io.*;
+import java.util.Objects;
 
 public class Task {
-    private String name;                  //    Название
-    private Significance significance;    //    Важность (от 1 до 5)
-    private String deadline;              //    Срок выполнения (опционально)
-    private Category category;            //    Категория (опционально)
-    private Condition condition;          //    Архивирование выполненных задач (после архивирования исчезают из списка)
+    private String number;                  //    Номер
+    private String name;                    //    Название
+    private Significance significance;      //    Важность (от 1 до 5)
+    private String deadline;                //    Срок выполнения (опционально)
+    private Category category;              //    Категория (опционально)
+    private Condition condition;            //    Архивирование выполненных задач (после архивирования исчезают из списка)
 
-    public Task(String name, Significance significance, String deadline, Category category, Condition condition) {
+    public Task(String number, String name, Significance significance, String deadline, Category category, Condition condition) {
+        this.number = number;
         this.name = name;
         this.significance = significance;
         this.deadline = deadline;
         this.category = category;
         this.condition = condition;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getName() {
@@ -58,37 +69,29 @@ public class Task {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return number.equals(task.number);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    @Override
     public String toString() {
         return "Task{" +
-                "name='" + name + '\'' +
+                "number='" + number + '\'' +
+                ", name='" + name + '\'' +
                 ", significance=" + significance +
                 ", deadline='" + deadline + '\'' +
                 ", category=" + category +
                 ", condition=" + condition +
                 '}';
     }
-
-    static void writeTasks(String line) {
-        try (OutputStream outputStream = new FileOutputStream("tasks.txt")) {
-            outputStream.write(line.getBytes());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    static String readTasks() {
-        String rezult = "";
-        try (InputStream in = new FileInputStream("tasks.txt")) {
-            byte[] buffer = new byte[in.available()];
-            int count = in.read(buffer);
-            rezult = new String(buffer, 0, count);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return rezult;
-    }
-
-
 
 }
 
